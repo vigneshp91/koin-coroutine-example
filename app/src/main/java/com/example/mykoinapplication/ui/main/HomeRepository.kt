@@ -9,6 +9,5 @@ import kotlinx.coroutines.Dispatchers
 class HomeRepository(private val api:ApiInterface):IHomeRepo{
     override suspend fun getDataFromService() = NetworkHelper.safeApiCall(Dispatchers.IO) { api.getUser() }
 
-//    override suspend fun getDataFromService() = NetworkHelper.safeApiCall(Dispatchers.IO) { api.getUser() }
 
 }
