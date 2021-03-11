@@ -7,7 +7,7 @@ import androidx.lifecycle.liveData
 
 import com.example.mykoinapplication.ui.main.model.UserModel
 
-class HomeViewModel(private val repo:HomeRepository) : ViewModel() {
+class HomeViewModel(private val repo:IHomeRepo) : ViewModel() {
 
     val userData: LiveData<UserModel> = liveData {
         emit(repo.getDataFromService())
