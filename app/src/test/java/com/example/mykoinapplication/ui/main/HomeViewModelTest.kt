@@ -1,8 +1,10 @@
 package com.example.mykoinapplication.ui.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.example.mykoinapplication.network.ApiInterface
+import com.example.mykoinapplication.network.ResultWrapper
 import com.example.mykoinapplication.ui.main.model.UserModel
 import com.example.mykoinapplication.utils.TestCoroutineRule
 import org.junit.Assert.*
@@ -27,7 +29,7 @@ class HomeViewModelTest{
     @Mock
     lateinit var mRepo:IHomeRepo
 
-    @Mock private lateinit var apiUsersObserver: Observer<UserModel>
+    @Mock private lateinit var apiUsersObserver: LiveData<ResultWrapper<UserModel>>
 
     lateinit var viewModel: HomeViewModel
     @Before
@@ -38,7 +40,7 @@ class HomeViewModelTest{
     @Test
     fun simpleTest(){
         testCoroutineRule.runBlockingTest {
-            var result = UserModel()
+            var result = ResultWrapper.Success(UserModel())
             doReturn(result).`when`(mRepo).getDataFromService()
             viewModel.userData.observeForever(apiUsersObserver)
             verify(mRepo).getDataFromService()
